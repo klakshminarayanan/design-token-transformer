@@ -7,7 +7,7 @@ module.exports = {
     return token.type === 'color'
   },
   transformer: function ({ value }) {
-    const hex8 = new TinyColor.TinyColor(value).toHex8();
-    return `Color(0x${hex8})`
+    const hex8 = new TinyColor.TinyColor(value).toHex();
+    return `Color(0xff${hex8})`
   }
 }
