@@ -159,6 +159,29 @@ const StyleDictionaryExtended = StyleDictionary.extend({
         },
       ],
     },
+    "compose": {
+      transformGroup: "compose",
+      buildPath: "build/compose/",
+      files: [{
+        destination: "StyleDictionaryColor.kt",
+        format: "compose/object",
+        className: "StyleDictionaryColor",
+        packageName: "StyleDictionaryColor",
+        filter: {
+            type: "color",
+        }
+      },
+      {
+        destination: "StyleDictionarySize.kt",
+        format: "compose/object",
+        className: "StyleDictionarySize",
+        packageName: "StyleDictionarySize",
+        type: "float",
+        filter: {
+            type: "number"
+        }
+      }]
+    },
   },
 });
 console.log('StyleDictionaryExtended', StyleDictionaryExtended)
