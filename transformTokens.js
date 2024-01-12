@@ -2,6 +2,7 @@ const StyleDictionary = require('style-dictionary')
 const deepMerge = require("deepmerge");
 const webConfig = require('./src/web/index.js')
 const androidConfig = require("./src/android/index.js");
+const composeConfig = require("./src/compose/index.js");
 
 StyleDictionary.registerTransform({
   name: 'size/px',
@@ -43,7 +44,7 @@ StyleDictionary.registerFilter({
 })
 
 const StyleDictionaryExtended = StyleDictionary.extend({
-  ...deepMerge.all([androidConfig, webConfig]),
+  ...deepMerge.all([composeConfig,androidConfig, webConfig]),
   source: ["tokens/*.json"],
   platforms: {
     scss: {
@@ -159,8 +160,13 @@ const StyleDictionaryExtended = StyleDictionary.extend({
         },
       ],
     },
-    "compose": {
+    compose: {
       transformGroup: "compose",
+      transforms:[
+        'attribute/cti',
+        'name/ti/camel',
+        'color/ComposeColor'
+      ],
       buildPath: "build/compose/",
       files: [{
         destination: "StyleDictionaryColor.kt",
@@ -168,17 +174,16 @@ const StyleDictionaryExtended = StyleDictionary.extend({
         className: "StyleDictionaryColor",
         packageName: "StyleDictionaryColor",
         filter: {
-            type: "color",
+            type: "color"
         }
-      },
-      {
+      },{
         destination: "StyleDictionarySize.kt",
         format: "compose/object",
         className: "StyleDictionarySize",
         packageName: "StyleDictionarySize",
         type: "float",
         filter: {
-            type: "number"
+          type: "size"
         }
       }]
     },
